@@ -13,6 +13,7 @@ export class TitleComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.config);
   }
 
 }

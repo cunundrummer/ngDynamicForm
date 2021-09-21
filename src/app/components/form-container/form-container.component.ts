@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { of, Subscription } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { formConfig } from '../../models/form';
+import { formConfig, titleControlConfiguration } from '../../models/form';
 import { TitleComponent } from '../form-components/title/title.component';
 import { DynamicComponentDirective } from '../../directives/dynamic-component.directive';
 import { DescriptionComponent } from '../form-components/description/description.component';
@@ -20,6 +20,7 @@ export class FormContainerComponent implements OnInit {
   configFromPath: any;
   controlComponents: string[] = []; // name of controlComponents to load
   components = [] as any[];
+  compConfig: any;
 
     constructor(private fb: FormBuilder, private resolver: ComponentFactoryResolver) { }
 
@@ -49,18 +50,16 @@ export class FormContainerComponent implements OnInit {
       ]);
 
     let components: Component[] = [] as Component[];
-    console.log(association.size);
     association.forEach((component) => components.push(component));
-
-    console.log('Components in components array: ', components.length);
-    // const component = association.get('title');
 
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
     components.forEach((comp, i ) => {
       const componentFactory = this.resolver.resolveComponentFactory<Component>(components[i] as Type<Component>);
-      viewContainerRef.createComponent<any>(componentFactory);
+      const componentRef = viewContainerRef.createComponent<any>(componentFactory);
+      componentRef.instance.config = titleControlConfiguration;
     })
-    // const componentFactory = this.resolver.resolveComponentFactory<Component>(components[0] as Type<Component>);
+    this.compConfig = titleControlConfiguration;
+
     // const componentRef = viewContainerRef.createComponent<any>(componentFactory);
     /** add data... **/
     // componentRef.instance.data = component.data;
