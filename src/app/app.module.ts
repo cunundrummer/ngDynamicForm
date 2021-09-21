@@ -10,6 +10,7 @@ import { FormContainerComponent } from './components/form-container/form-contain
 import { ReactiveFormsModule } from '@angular/forms';
 import { TitleComponent } from './components/form-components/title/title.component';
 import { DynamicComponentDirective } from './directives/dynamic-component.directive';
+import { DescriptionComponent } from './components/form-components/description/description.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DynamicComponentDirective } from './directives/dynamic-component.direct
     JobsComponent,
     FormContainerComponent,
     TitleComponent,
-    DynamicComponentDirective
+    DynamicComponentDirective,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,

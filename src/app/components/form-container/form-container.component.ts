@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { of, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { formConfig } from '../../models/form';
 import { TitleComponent } from '../form-components/title/title.component';
 import { DynamicComponentDirective } from '../../directives/dynamic-component.directive';
+import { DescriptionComponent } from '../form-components/description/description.component';
 
 @Component({
   selector: 'app-form-container',
@@ -41,12 +42,26 @@ export class FormContainerComponent implements OnInit {
     /** STEP 1:
      * associate name with component
     */
-    const association: Map<string, any> = new Map([['title', TitleComponent]]);
-    const component = association.get('title');
-    console.log(component);
-    const componentFactory = this.resolver.resolveComponentFactory(component);
+    const association: Map<string, any> = new Map(
+      [
+        ['title', TitleComponent],
+        ['description', DescriptionComponent]
+      ]);
+
+    let components: Component[] = [] as Component[];
+    console.log(association.size);
+    association.forEach((component) => components.push(component));
+
+    console.log('Components in components array: ', components.length);
+    // const component = association.get('title');
+
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
-    const componentRef = viewContainerRef.createComponent<any>(componentFactory);
+    components.forEach((comp, i ) => {
+      const componentFactory = this.resolver.resolveComponentFactory<Component>(components[i] as Type<Component>);
+      viewContainerRef.createComponent<any>(componentFactory);
+    })
+    // const componentFactory = this.resolver.resolveComponentFactory<Component>(components[0] as Type<Component>);
+    // const componentRef = viewContainerRef.createComponent<any>(componentFactory);
     /** add data... **/
     // componentRef.instance.data = component.data;
 
