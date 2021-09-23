@@ -5,8 +5,8 @@ import { FormGroup } from '@angular/forms';
   selector: '[dynamicComponent]'
 })
 export class DynamicComponentDirective implements OnInit{
-  @Input() config: any;
-  @Input() group!: FormGroup;
+  @Input() config: any; // will not receive anything unless PASSED AS [input]='xx'
+  @Input() group!: FormGroup; // will not receive anything unless PASSED AS [input]='xx'
 
   constructor(public viewContainerRef: ViewContainerRef, private elRef: ElementRef) {
     /**

@@ -1,12 +1,21 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { of, Subscription } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
-import { formConfig, titleControlConfiguration } from '../../models/form';
+import { Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  descriptionControlConfiguration,
+  formConfig,
+  IFormCategoryConfig, IFormControlConfigurations,
+  titleControlConfiguration
+} from '../../models/form';
 import { TitleComponent } from '../form-components/title/title.component';
 import { DynamicComponentDirective } from '../../directives/dynamic-component.directive';
 import { DescriptionComponent } from '../form-components/description/description.component';
+
+interface IComponentConfigAssociaton {
+  [str: string]: {
+    component: Component
+    config: IFormControlConfigurations
+  }
+}
 
 @Component({
   selector: 'app-form-container',
@@ -22,48 +31,51 @@ export class FormContainerComponent implements OnInit {
   components = [] as any[];
   compConfig: any;
 
-    constructor(private fb: FormBuilder, private resolver: ComponentFactoryResolver) { }
+  constructor(private fb: FormBuilder, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
     this.configFromPath = this.getFormConfigFromPath();
     console.log('formConfig: ', this.configFromPath);
     this.setControlComponentNames();
-    this.loadFormControlComponents(this.controlComponents);
-    this.createFormGroup();
+    this.group = this.createFormGroup();
+    this.loadFormControlComponents();
   }
 
   getFormConfigFromPath() {
     return formConfig.filter(fc => fc.forPath == this.routePath)
-      .reduce((arr, item) => {
+      .reduce((arr: IFormCategoryConfig) => {
         return arr;
       });
   }
 
-  loadFormControlComponents(componentNames: string[]) {
+  loadFormControlComponents() {
     /** STEP 1:
      * associate name with component
     */
-    const association: Map<string, any> = new Map(
-      [
-        ['title', TitleComponent],
-        ['description', DescriptionComponent]
-      ]);
-
-    let components: Component[] = [] as Component[];
-    association.forEach((component) => components.push(component));
+    const association: IComponentConfigAssociaton[] = [
+      {
+        'title': {
+          component: TitleComponent as Component,
+          config: titleControlConfiguration
+        }
+      },
+      {
+        'description': {
+          component: DescriptionComponent as Component,
+          config: descriptionControlConfiguration
+        }
+      }
+    ];
 
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
-    components.forEach((comp, i ) => {
-      const componentFactory = this.resolver.resolveComponentFactory<Component>(components[i] as Type<Component>);
-      const componentRef = viewContainerRef.createComponent<any>(componentFactory);
-      componentRef.instance.config = titleControlConfiguration;
-    })
-    this.compConfig = titleControlConfiguration;
-
-    // const componentRef = viewContainerRef.createComponent<any>(componentFactory);
-    /** add data... **/
-    // componentRef.instance.data = component.data;
-
+    association.forEach((associate: IComponentConfigAssociaton) => {
+      Object.keys(associate).forEach((key: string) => {
+        const componentFactory = this.resolver.resolveComponentFactory<Component>(associate[key].component as Type<Component>);
+        const componentRef = viewContainerRef.createComponent<any>(componentFactory);
+        componentRef.instance.config = associate[key].config;
+        componentRef.instance.group = this.group;
+      })
+    });
   }
 
   /**
@@ -72,7 +84,7 @@ export class FormContainerComponent implements OnInit {
   setControlComponentNames() {
     const controls: any = [];
     let ctrlNames: any[] = [];
-    this.configFromPath.formControls.forEach((ctrl: any, index: number) => {
+    this.configFromPath.formControls.forEach((ctrl: any) => {
       controls.push(ctrl);
       Object.keys(ctrl).forEach(k => ctrlNames.push(k));
     });
@@ -82,22 +94,11 @@ export class FormContainerComponent implements OnInit {
   }
 
   createFormGroup() {
-    this.group = this.fb.group({});
-
-    /**
-     * STEP 2 - configure individual controls
-     * moved to method: setControlComponentNames
-     */
-
-    /**
-     * STEP 3
-     */
-    // for (let i = 0; i < controls.length; i++) {
-    //   console.log(controls[i][ctrlNames[i]]);
-    //   const controlConfig = controls[i][ctrlNames[i]];
-    //   this.group.addControl(controlConfig.name, new FormControl('', controlConfig.validators));
-    // }
-    // console.log(controls[0].title.label)
+    const group = this.fb.group({});
+    this.controlComponents.forEach((controlName: string) => {
+      group.addControl(controlName, this.fb.control(null));
+    })
+    return group;
   }
 
   handleSubmit(event: Event) {

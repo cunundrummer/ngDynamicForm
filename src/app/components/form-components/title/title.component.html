@@ -1,1 +1,6 @@
-Title Component
+<div *ngIf="config.usesMatFormField" [formGroup]="group">
+  <mat-form-field>
+    <mat-label>{{config.label}}</mat-label>
+    <input matInput [formControlName]="config.name" [type]="config.type">
+  </mat-form-field>
+</div>

@@ -1,3 +1,6 @@
 <form [formGroup]="group">
-  <ng-template dynamicComponent [config]="compConfig"></ng-template>
+  <ng-template dynamicComponent></ng-template>
 </form>
+
+{{group.status}}
+{{group.value | json}}
