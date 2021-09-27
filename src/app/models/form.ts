@@ -13,7 +13,7 @@ export const titleControlConfiguration: IFormControlConfigurations = {
   usesMatFormField: true,
   label: 'Title',
   type: 'text',
-  validators: [Validators.required, Validators.min(5), Validators.max(20)]
+  validators: [Validators.required, Validators.minLength(5), Validators.maxLength(20)]
 }
 
 export const descriptionControlConfiguration: IFormControlConfigurations = {
@@ -21,7 +21,7 @@ export const descriptionControlConfiguration: IFormControlConfigurations = {
   usesMatFormField: false,
   label: 'Description',
   type: 'textarea',
-  validators: [Validators.required, Validators.max(1000)]
+  validators: [Validators.required, Validators.maxLength(1000)]
 };
 
 export interface IFormCategoryConfig {
