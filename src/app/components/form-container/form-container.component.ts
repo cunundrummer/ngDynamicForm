@@ -10,7 +10,7 @@ import { TitleComponent } from '../form-components/title/title.component';
 import { DynamicComponentDirective } from '../../directives/dynamic-component.directive';
 import { DescriptionComponent } from '../form-components/description/description.component';
 
-interface IComponentConfigAssociaton {
+interface IComponentConfigAssociation {
   [str: string]: {
     component: Component
     config: IFormControlConfigurations
@@ -52,7 +52,7 @@ export class FormContainerComponent implements OnInit {
     /** STEP 1:
      * associate name with component
     */
-    const association: IComponentConfigAssociaton[] = [
+    const association: IComponentConfigAssociation[] = [
       {
         'title': {
           component: TitleComponent as Component,
@@ -68,12 +68,13 @@ export class FormContainerComponent implements OnInit {
     ];
 
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
-    association.forEach((associate: IComponentConfigAssociaton) => {
+    association.forEach((associate: IComponentConfigAssociation) => {
       Object.keys(associate).forEach((key: string) => {
         const componentFactory = this.resolver.resolveComponentFactory<Component>(associate[key].component as Type<Component>);
         const componentRef = viewContainerRef.createComponent<any>(componentFactory);
         componentRef.instance.config = associate[key].config;
         componentRef.instance.group = this.group;
+        this.group.controls[key].setValidators(associate[key].config.validators);
       })
     });
   }

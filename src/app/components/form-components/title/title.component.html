@@ -1,6 +1,6 @@
 <div *ngIf="config.usesMatFormField" [formGroup]="group">
   <mat-form-field>
     <mat-label>{{config.label}}</mat-label>
-    <input matInput [formControlName]="config.name" [type]="config.type">
+    <input matInput [formControlName]="config.name" [type]="config.type" required>
   </mat-form-field>
 </div>

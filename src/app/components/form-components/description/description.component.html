@@ -1,4 +1,7 @@
 <div [formGroup]="group">
-  <textarea [formControlName]="config.name"></textarea>
+  <mat-form-field>
+    <mat-label>{{config.label}}</mat-label>
+    <textarea matInput [formControlName]="config.name" required></textarea>
+  </mat-form-field>
 </div>
 
