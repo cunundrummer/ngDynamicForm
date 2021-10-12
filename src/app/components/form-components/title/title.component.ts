@@ -20,6 +20,7 @@ export class TitleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.control = this.group.controls[this.config.name];
     console.log('Have config for component: ', this.config.name);
+    console.log('Inspecting constraints: ', this.config.constraints);
   }
 
   buildErrorMessage(error: string | null) {

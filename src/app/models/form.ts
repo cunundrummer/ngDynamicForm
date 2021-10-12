@@ -5,9 +5,11 @@ import { Component } from '@angular/core';
 const titleRequiredErrorMessage = () => 'The title is required.';
 const descriptionRequiredErrorMessage = () => 'Please enter a description.';
 const minLengthErrorMessage = (num: number) => `Please enter a minimum of ${num} characters`;
+const maxLengthErrorMessage = (num: number) => `Please enter a maximum of ${num} characters`;
 
 
-interface IErrorLengthValues {
+export interface IConstraints {
+  required: boolean;
   minLength: number;
   maxLength: number;
 }
@@ -25,12 +27,13 @@ export interface IFormControlConfigurations {
   usesMatFormField: boolean;
   validators: ValidatorFn | ValidatorFn[] | null;
   hints?: unknown;
-  errorConfigs?: any;
+  constraints?: IConstraints | null;
   errorMessages?: IFormControlConfigurationsErrors[]
 }
 
-export const titleControlConfiguration = (configVals: IErrorLengthValues): IFormControlConfigurations => {
-  const {minLength, maxLength} = {...configVals};
+export const titleControlConfiguration = (constraints: IConstraints): IFormControlConfigurations => {
+  const {required, minLength, maxLength} = {...constraints};
+  console.log('type of required: ', typeof required);
 
   return {
     associatedComponent: <Component>TitleComponent,
@@ -39,10 +42,7 @@ export const titleControlConfiguration = (configVals: IErrorLengthValues): IForm
     label: 'Title',
     type: 'text',
     validators: [Validators.required, Validators.minLength(minLength), Validators.maxLength(maxLength)],
-    errorConfigs: {
-      minLength: minLength,
-      maxLength: maxLength
-    },
+    constraints: constraints as IConstraints | null,
     errorMessages: [
       {
         errName: 'required',
@@ -80,7 +80,7 @@ export const formConfig: IFormCategoryConfig[] = [
   {
     forPath: 'buysell',
     formControls: [
-      {'title': titleControlConfiguration({minLength: 5, maxLength: 20})},
+      {'title': titleControlConfiguration({required: true, minLength: 5, maxLength: 20})},
       {'description': descriptionControlConfiguration}
     ]
   }

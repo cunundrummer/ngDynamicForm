@@ -1,7 +1,7 @@
 <div *ngIf="config.usesMatFormField" [formGroup]="group">
   <mat-form-field>
     <mat-label>{{config.label}}</mat-label>
-    <input matInput [formControlName]="config.name" [type]="config.type" required>
+    <input matInput [formControlName]="config.name" [type]="config.type" [required]="config?.constraints?.required || false">
     <mat-hint *ngIf="config.hints">{{config.hints}}</mat-hint>
     <mat-error formControlError [controlErr]="control" (errMsg)="buildErrorMessage($event)">{{err}}</mat-error>
   </mat-form-field>
