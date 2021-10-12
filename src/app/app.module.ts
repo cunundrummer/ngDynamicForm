@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TitleComponent } from './components/form-components/title/title.component';
 import { DynamicComponentDirective } from './directives/dynamic-component.directive';
 import { DescriptionComponent } from './components/form-components/description/description.component';
+import { FormControlErrorDirective } from './directives/form-control-error.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DescriptionComponent } from './components/form-components/description/d
     FormContainerComponent,
     TitleComponent,
     DynamicComponentDirective,
-    DescriptionComponent
+    DescriptionComponent,
+    FormControlErrorDirective
   ],
   imports: [
     BrowserModule,

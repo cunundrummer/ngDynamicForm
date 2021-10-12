@@ -16,9 +16,7 @@ export class DynamicComponentDirective implements OnInit{
   }
 
   ngOnInit() {
-    console.log(this.viewContainerRef);
-    console.log(this.elRef);
-    console.log(this.config);
+    // console.log(this.viewContainerRef);
   }
 
 
