@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../../models/form';
 import { Subject } from 'rxjs';
@@ -6,7 +6,8 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css']
+  styleUrls: ['./title.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TitleComponent implements OnInit, OnDestroy {
   @Input() group!: FormGroup;

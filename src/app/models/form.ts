@@ -19,6 +19,12 @@ interface IFormControlConfigurationsErrors {
   errMsg: string;
 }
 
+export interface IFormCategoryConfig {
+  forPath: string;
+  formControls: {[ctrlName: string]: IFormControlConfigurations}[]
+}
+
+type hintAlignment = 'start' | 'end';
 export interface IFormControlConfigurations {
   associatedComponent?: Component;
   name: string;
@@ -26,7 +32,10 @@ export interface IFormControlConfigurations {
   type: string;
   usesMatFormField: boolean;
   validators: ValidatorFn | ValidatorFn[] | null;
-  hints?: unknown;
+  hints?: {
+    alignment: hintAlignment,
+    message: string
+  };
   constraints?: IConstraints | null;
   errorMessages?: IFormControlConfigurationsErrors[]
 }
@@ -37,11 +46,15 @@ export const titleControlConfiguration = (constraints: IConstraints): IFormContr
 
   return {
     associatedComponent: <Component>TitleComponent,
-    name: 'title',
+    name: 'title', // to be used along with formControlName directive
     usesMatFormField: true,
     label: 'Title',
     type: 'text',
     validators: [Validators.required, Validators.minLength(minLength), Validators.maxLength(maxLength)],
+    hints: {
+      alignment: 'end',
+      message: 'Hint'
+    },
     constraints: constraints as IConstraints | null,
     errorMessages: [
       {
@@ -51,15 +64,12 @@ export const titleControlConfiguration = (constraints: IConstraints): IFormContr
       {
         errName: 'minLength',
         errMsg: minLengthErrorMessage(minLength)
+      },
+      {
+        errName: 'maxLength',
+        errMsg: maxLengthErrorMessage(maxLength)
       }
     ]
-  }
-}
-
-const errorMessages = {
-  title: {
-    required: 'A title is required.',
-    minLength: `The title should be at least characters long.`
   }
 }
 
@@ -71,17 +81,3 @@ export const descriptionControlConfiguration: IFormControlConfigurations = {
   validators: [Validators.required, Validators.maxLength(1000)]
 };
 
-export interface IFormCategoryConfig {
-  forPath: string;
-  formControls: {[ctrlName: string]: IFormControlConfigurations}[]
-}
-
-export const formConfig: IFormCategoryConfig[] = [
-  {
-    forPath: 'buysell',
-    formControls: [
-      {'title': titleControlConfiguration({required: true, minLength: 5, maxLength: 20})},
-      {'description': descriptionControlConfiguration}
-    ]
-  }
-];

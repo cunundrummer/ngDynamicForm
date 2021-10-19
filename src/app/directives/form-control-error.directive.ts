@@ -1,14 +1,14 @@
 import {
   Directive,
   EventEmitter,
-  Input,
+  Input, OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  Output, SimpleChanges, ViewChild,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, of, Subject } from 'rxjs';
 import { finalizeMessage } from '../utility-functions/observable-utils';
 
 enum ControlStatus {
@@ -21,26 +21,43 @@ enum ControlStatus {
 @Directive({
   selector: '[formControlError]'
 })
-export class FormControlErrorDirective implements OnInit, OnDestroy {
-  @Input() controlErr!: AbstractControl;
+export class FormControlErrorDirective implements OnInit, OnChanges, OnDestroy {
+  @Input() control!: AbstractControl;
   @Output() errMsg = new EventEmitter<string | null>();
+  touched$ = new BehaviorSubject<boolean>(this.control?.touched);
   destroyed$ = new Subject<boolean>();
 
   constructor() { }
 
   ngOnInit() {
-    const statsObs$ = this.controlErr.statusChanges
+    this.setInitialError();
+
+    const statusObs$ = this.control.statusChanges
       .pipe(
         takeUntil(this.destroyed$),
-        tap(status => console.log(status)),
         finalize(finalizeMessage.bind(this, 'controlErr.statusChanges'))
       );
-    statsObs$.subscribe((status: ControlStatus) => {
+    statusObs$.subscribe((status: ControlStatus) => {
       this.errMsg.emit(this.handleStatus(status));
     });
   }
 
+  /**
+   * @description Displays error message after touched.  Required to prevent a bug where
+   *              the control shows that it is in error, but does not display a message.
+   */
+  setInitialError() {
+    if (this.errMsg) {
+      this.errMsg.emit(this.handleStatus(ControlStatus.INVALID));
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+
+  }
+
   handleStatus(status: ControlStatus) {
+    console.log('Control is ', status);
     switch (status) {
       case ControlStatus.PENDING:
         break;
@@ -50,7 +67,7 @@ export class FormControlErrorDirective implements OnInit, OnDestroy {
         break;
       case ControlStatus.INVALID:
         let error: string | null = null;
-        for (const errorKey of Object.keys(this.controlErr.errors as string[])) {
+        for (const errorKey of Object.keys(this.control.errors as string[])) {
           if (errorKey) {
             error = errorKey;
             break;

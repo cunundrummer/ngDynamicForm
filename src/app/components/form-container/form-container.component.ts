@@ -1,7 +1,8 @@
 import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { formConfig, IFormCategoryConfig } from '../../models/form';
+import { IFormCategoryConfig } from '../../models/form';
 import { DynamicComponentDirective } from '../../directives/dynamic-component.directive';
+import { formConfig } from '../../models/buy-and-sell-model';
 
 @Component({
   selector: 'app-form-container',
@@ -77,14 +78,14 @@ export class FormContainerComponent implements OnInit {
     ]
   }
    */
-  getFormConfigFromPath() {
-    return formConfig.filter(fc => fc.forPath == this.routePath)
+  getFormConfigFromPath(): IFormCategoryConfig {
+    return formConfig.filter((fc: { forPath: string; }) => fc.forPath == this.routePath)
       .reduce((arr: IFormCategoryConfig) => {
         return arr;
       });
   }
 
-  loadFormControlComponents() {
+  loadFormControlComponents(): void {
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
     this.components.forEach((component) => {
       Object.keys(component).forEach((key: string) => {
@@ -102,7 +103,7 @@ export class FormContainerComponent implements OnInit {
   /**
    * Acquires the names of the components that contain the controls
    */
-  setControlComponentNames() {
+  setControlComponentNames(): void {
     const controls: any = [];
     let ctrlNames: any[] = [];
     this.configFromPath.formControls.forEach((ctrl: any) => {
@@ -112,11 +113,6 @@ export class FormContainerComponent implements OnInit {
     console.log('Extracted controls: ', controls);
     console.log('Control names: ', ctrlNames);
     this.controlComponentsNames = ctrlNames;
-  }
-
-  assignConfigForComponentName(name: string, config: unknown) {
-    console.log('Attempting to extract proper config for ', name);
-    console.log('looking in config: ', config);
   }
 
   createFormGroup() {

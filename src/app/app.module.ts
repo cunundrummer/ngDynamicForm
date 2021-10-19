@@ -12,6 +12,7 @@ import { TitleComponent } from './components/form-components/title/title.compone
 import { DynamicComponentDirective } from './directives/dynamic-component.directive';
 import { DescriptionComponent } from './components/form-components/description/description.component';
 import { FormControlErrorDirective } from './directives/form-control-error.directive';
+import { CustomInputDirective } from './directives/custom-input.directive';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { FormControlErrorDirective } from './directives/form-control-error.direc
     JobsComponent,
     FormContainerComponent,
     TitleComponent,
-    DynamicComponentDirective,
     DescriptionComponent,
-    FormControlErrorDirective
+    FormControlErrorDirective,
+    DynamicComponentDirective,
+    CustomInputDirective
   ],
   imports: [
     BrowserModule,
