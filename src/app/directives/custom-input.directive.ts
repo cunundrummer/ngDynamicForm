@@ -7,7 +7,6 @@ import {
   Renderer2
 } from '@angular/core';
 import { findAll } from '../utility-functions/array-utils';
-import { FormControlName } from '@angular/forms';
 import { IConstraints } from '../models/form';
 
 @Directive({
@@ -21,7 +20,6 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
               private renderer: Renderer2) {}
 
   ngOnInit() {
-
     if (this.config) {
       console.log('CustomInput directive received config object for control: ', this.config.name);
       this.attributes = this.extractConstraintsAndProperties();
@@ -29,12 +27,11 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // console.log(this.elRef);
     for (let attributeName in this.attributes) {
       const attributeValue = this.attributes[attributeName];
-      console.log(attributeName, attributeValue);
       if (attributeValue) {
         this.renderer.setAttribute(this.elRef.nativeElement, attributeName, attributeValue);
+        console.log('setting ', attributeName, attributeValue);
       } else {
         this.renderer.removeAttribute(this.elRef.nativeElement, attributeName);
       }
@@ -46,10 +43,8 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
    * @return {string[]} of all values found.
    */
   configure(): string[] {
-    let found: string[] = [];
     const attributes: any[] = this.getElementAttributes();
-    found = findAll(attributes, Object.keys(this.extractConstraintsAndProperties()));
-    return found;
+    return findAll(attributes, Object.keys(this.extractConstraintsAndProperties()));
   }
 
   /**
