@@ -1,14 +1,14 @@
 import {
   Directive,
   EventEmitter,
-  Input, OnChanges,
+  Input,
   OnDestroy,
   OnInit,
-  Output, SimpleChanges, ViewChild,
+  Output,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { finalize, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { finalizeMessage } from '../utility-functions/observable-utils';
 
 enum ControlStatus {
@@ -21,10 +21,9 @@ enum ControlStatus {
 @Directive({
   selector: '[formControlError]'
 })
-export class FormControlErrorDirective implements OnInit, OnChanges, OnDestroy {
+export class FormControlErrorDirective implements OnInit, OnDestroy {
   @Input() control!: AbstractControl;
   @Output() errMsg = new EventEmitter<string | null>();
-  touched$ = new BehaviorSubject<boolean>(this.control?.touched);
   destroyed$ = new Subject<boolean>();
 
   constructor() { }
@@ -50,10 +49,6 @@ export class FormControlErrorDirective implements OnInit, OnChanges, OnDestroy {
     if (this.errMsg) {
       this.errMsg.emit(this.handleStatus(ControlStatus.INVALID));
     }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-
   }
 
   handleStatus(status: ControlStatus) {
