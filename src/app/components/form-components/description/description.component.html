@@ -1,7 +1,7 @@
 <div [formGroup]="group">
   <mat-form-field [hintLabel]="config?.hints?.message || ''" [hideRequiredMarker]="!config.constraints!.required">
     <mat-label>{{config.label}}</mat-label>
-    <!-- INJECT control here -->
+    <!-- INJECT control here  | With ng-content & templateRef?-->
     <textarea #inputEl
               matInput
               required
@@ -14,5 +14,5 @@
                [controlConfiguration]="config"
                (errMsg)="buildErrorMessage($event)">{{err}}</mat-error>
   </mat-form-field>
-</div>
+</div >
 
