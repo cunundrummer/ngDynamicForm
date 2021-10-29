@@ -1,11 +1,26 @@
-import { descriptionControlConfiguration, IFormCategoryConfig, titleControlConfiguration } from './form';
+import { IFormCategoryConfig } from '../interfaces/form.interfaces';
+import { titleControlConfiguration } from './controlConfigurations/titleControlConfiguration';
+import { descriptionControlConfiguration } from './controlConfigurations/descriptionControlConfiguration';
+
+const TITLE_MIN_LENGTH = 5;
+const TITLE_MAX_LENGTH = 20;
+const DESCRIPTION_MIN_LENGTH = 5;
+const DESCRIPTION_MAX_LENGTH = 2000;
 
 export const formConfig: IFormCategoryConfig[] = [
   {
     forPath: 'buysell',
     formControls: [
-      {'title': titleControlConfiguration({required: true, minLength: 5, maxLength: 20})},
-      {'description': descriptionControlConfiguration}
+      {'title': titleControlConfiguration({
+          required: true,
+          minLength: TITLE_MIN_LENGTH,
+          maxLength: TITLE_MAX_LENGTH})
+      },
+      {'description': descriptionControlConfiguration({
+          required: true,
+          minLength: DESCRIPTION_MIN_LENGTH,
+          maxLength: DESCRIPTION_MAX_LENGTH})
+      }
     ]
   }
 ];

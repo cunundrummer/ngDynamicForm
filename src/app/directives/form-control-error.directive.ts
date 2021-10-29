@@ -10,6 +10,7 @@ import { AbstractControl } from '@angular/forms';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { finalizeMessage } from '../utility-functions/observable-utils';
+import { IFormControlConfigurations } from '../interfaces/form.interfaces';
 
 enum ControlStatus {
   DISABLED = 'DISABLED',
@@ -19,17 +20,19 @@ enum ControlStatus {
 }
 
 @Directive({
-  selector: '[formControlError]'
+  selector: '[formControlError]',
+  providers: []
 })
 export class FormControlErrorDirective implements OnInit, OnDestroy {
   @Input() control!: AbstractControl;
+  @Input() controlConfiguration!: IFormControlConfigurations;
   @Output() errMsg = new EventEmitter<string | null>();
   destroyed$ = new Subject<boolean>();
 
   constructor() { }
 
   ngOnInit() {
-    this.setInitialError();
+    this.setInitialError(); // Must stay as first method call. See description.
 
     const statusObs$ = this.control.statusChanges
       .pipe(
@@ -62,7 +65,8 @@ export class FormControlErrorDirective implements OnInit, OnDestroy {
         break;
       case ControlStatus.INVALID:
         let error: string | null = null;
-        for (const errorKey of Object.keys(this.control.errors as string[])) {
+
+        for (const errorKey of Object.keys(this.control?.errors as string[])) {
           if (errorKey) {
             error = errorKey;
             break;

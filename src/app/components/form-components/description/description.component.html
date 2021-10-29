@@ -1,7 +1,18 @@
 <div [formGroup]="group">
-  <mat-form-field>
+  <mat-form-field [hintLabel]="config?.hints?.message || ''" [hideRequiredMarker]="!config.constraints!.required">
     <mat-label>{{config.label}}</mat-label>
-    <textarea matInput [formControlName]="config.name" required></textarea>
+    <!-- INJECT control here -->
+    <textarea #inputEl
+              matInput
+              required
+              [formControlName]="config.name"
+              [customInput]="config"
+    ></textarea>
+    <mat-hint *ngIf="config.hints" [align]="config.hints.alignment">{{inputEl.value.length || 0}} / {{config?.constraints?.maxLength}}</mat-hint>
+    <mat-error formControlError
+               [control]="control"
+               [controlConfiguration]="config"
+               (errMsg)="buildErrorMessage($event)">{{err}}</mat-error>
   </mat-form-field>
 </div>
 

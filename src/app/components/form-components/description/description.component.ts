@@ -1,19 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { IFormCategoryConfig, IFormControlConfigurations } from '../../../models/form';
+import { Component, OnInit } from '@angular/core';
+import { BaseControlComponent } from '../base-control/base-control.component';
 
 @Component({
   selector: 'app-description',
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.css']
 })
-export class DescriptionComponent implements OnInit {
-  @Input() group!: FormGroup;
-  @Input() config!: IFormControlConfigurations;
+export class DescriptionComponent extends BaseControlComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
+    this.control = this.group.controls[this.config.name];
   }
 
 }

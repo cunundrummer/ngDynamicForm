@@ -7,7 +7,7 @@ import {
   Renderer2
 } from '@angular/core';
 import { findAll } from '../utility-functions/array-utils';
-import { IConstraints } from '../models/form';
+import { IFormControlConstraints } from '../interfaces/form.interfaces';
 
 @Directive({
   selector: '[customInput]'
@@ -66,9 +66,9 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
 
   /**
    * @description extracts all attributes(constraints) and properties form config object
-   * @return {type: string, IConstraints}
+   * @return {type: string, IFormControlConstraints}
    */
-  private extractConstraintsAndProperties(): {type: string, attributes: IConstraints } {
+  private extractConstraintsAndProperties(): {type: string, attributes: IFormControlConstraints } {
     return {
       type: this.config.type,
       ...this.config.constraints

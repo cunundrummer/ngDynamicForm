@@ -13,6 +13,7 @@ import { DynamicComponentDirective } from './directives/dynamic-component.direct
 import { DescriptionComponent } from './components/form-components/description/description.component';
 import { FormControlErrorDirective } from './directives/form-control-error.directive';
 import { CustomInputDirective } from './directives/custom-input.directive';
+import { BaseControlComponent } from './components/form-components/base-control/base-control.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CustomInputDirective } from './directives/custom-input.directive';
     DescriptionComponent,
     FormControlErrorDirective,
     DynamicComponentDirective,
-    CustomInputDirective
+    CustomInputDirective,
+    BaseControlComponent
   ],
   imports: [
     BrowserModule,
