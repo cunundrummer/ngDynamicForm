@@ -6,7 +6,8 @@ import { JobsComponent } from './components/jobs/jobs.component';
 const routes: Routes = [
   {
     path: 'buysell',
-    component: BuyAndSellComponent
+    component: BuyAndSellComponent,
+    data: {category: 'Buy and Sell'}
   },
   {
     path: 'jobs',

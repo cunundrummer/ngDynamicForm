@@ -1,6 +1,6 @@
 import { IFormControlConfigurations, IFormControlConstraints } from '../../interfaces/form.interfaces';
 import { Component } from '@angular/core';
-import { TitleComponent } from '../../components/form-components/title/title.component';
+import { TitleComponent } from '../../components/forms/form-components/title/title.component';
 import { Validators } from '@angular/forms';
 
 

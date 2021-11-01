@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { IFormControlConfigurations } from '../../../interfaces/form.interfaces';
+import { IFormControlConfigurations } from '../../../../interfaces/form.interfaces';
 
 @Component({
   selector: 'app-base-control',

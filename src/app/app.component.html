@@ -1,11 +1,8 @@
 <section>
   <h4>Forms:</h4>
   <ul style="display: block">
-    <li>
-      <a routerLink="buysell">Buy and Sell</a>
-    </li>
-    <li>
-      <a routerLink="jobs">Jobs</a>
+    <li *ngFor="let catData of categoryData">
+      <a [routerLink]='catData.route'>{{catData.category}}</a>
     </li>
   </ul>
 </section>

@@ -1,7 +1,7 @@
 import { IFormControlConfigurations, IFormControlConstraints } from '../../interfaces/form.interfaces';
 import { Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { DescriptionComponent } from '../../components/form-components/description/description.component';
+import { DescriptionComponent } from '../../components/forms/form-components/description/description.component';
 
 const descriptionRequiredErrorMessage = () => 'Please enter a description.';
 const descriptionHintMessage = () => 'More details means better rate of views.';
