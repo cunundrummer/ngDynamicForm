@@ -33,19 +33,19 @@ export class CategoryContainerComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(
         filter(value => value instanceof NavigationEnd),
-        take(1),
+        take(1),  // ensures preventing infinite loop
         takeUntil(this.destroyed$)
       )
       .subscribe((event) => {
-
-        console.log((event as RouterEvent).url, oldPath);
         if ((event as RouterEvent).url !== oldPath) {
-          console.log('reloading...');
           this.reloadCurrentRoute();
         }
       });
   }
 
+  /**
+   * @description Ensures that component gets reloaded.
+   */
   reloadCurrentRoute() {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', {skipLocationChange: true})
@@ -63,13 +63,10 @@ export class CategoryContainerComponent implements OnInit, OnDestroy {
   findCategoryRouteIndex(cr: ICategoryRouteInterface[] = categoryRoutes): number | null {
     const index = cr.findIndex((value: ICategoryRouteInterface) => {
       const searchVal = value.route.slice(categoryRoutePrefix.length).toLowerCase();
-      console.log(searchVal === this.routePath.toLowerCase());
       return searchVal === this.routePath.toLowerCase();
     });
-    console.log(index, null === 0, null == 0);
     return index;
   }
-
 
   ngOnDestroy() {
     this.destroyed$.next(true);

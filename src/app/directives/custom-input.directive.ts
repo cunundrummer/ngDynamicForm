@@ -31,7 +31,7 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
       const attributeValue = this.attributes[attributeName];
       if (attributeValue) {
         this.renderer.setAttribute(this.elRef.nativeElement, attributeName, attributeValue);
-        console.log('setting ', attributeName, attributeValue);
+        // console.log('setting ', attributeName, attributeValue);
       } else {
         this.renderer.removeAttribute(this.elRef.nativeElement, attributeName);
       }
@@ -54,13 +54,11 @@ export class CustomInputDirective implements OnInit, AfterViewInit {
    */
   private getElementAttributes(): string[] {
     const temp: string[] = [];
-    Object.entries(this.elRef).map((attr: any[], index: number) => {
-      console.log(index)
+    Object.entries(this.elRef).map((attr: any[]) => {
       for (const a in attr[1]) {
         temp.push(a);
       }
     });
-
     return temp;
   }
 
