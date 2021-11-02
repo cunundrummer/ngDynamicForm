@@ -1,10 +1,11 @@
+export const categoryRoutePrefix = 'category/';
 export const categoryRoutes = [
   {
-    route: 'buysell',
+    route: categoryRoutePrefix + 'buysell',
     category: 'Buy and Sell' // internationalize?
   },
   {
-    route: 'jobs',
+    route: categoryRoutePrefix + 'jobs',
     category: 'Jobs'
   }
 ];
