@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryContainerComponent } from './components/category-container/category-container.component';
 
 const routes: Routes = [
   {
     path: 'category/:categoryName',
-    component: CategoryContainerComponent
+    loadChildren: () => import('./modules/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
   },
 ];
 
