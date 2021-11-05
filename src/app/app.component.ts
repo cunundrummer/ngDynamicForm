@@ -7,5 +7,6 @@ import { categoryRoutes } from './components/dynamic-form/models/category-routes
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  readonly title = 'ngDynamicForm';
   readonly categoryData = categoryRoutes;
 }
