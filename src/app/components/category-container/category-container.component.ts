@@ -61,11 +61,10 @@ export class CategoryContainerComponent implements OnInit, OnDestroy {
    * @return {number | null}
    */
   findCategoryRouteIndex(cr: ICategoryRouteInterface[] = categoryRoutes): number | null {
-    const index = cr.findIndex((value: ICategoryRouteInterface) => {
+    return cr.findIndex((value: ICategoryRouteInterface) => {
       const searchVal = value.route.slice(categoryRoutePrefix.length).toLowerCase();
       return searchVal === this.routePath.toLowerCase();
     });
-    return index;
   }
 
   ngOnDestroy() {
