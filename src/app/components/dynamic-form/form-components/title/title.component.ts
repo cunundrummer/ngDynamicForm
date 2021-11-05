@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
 @Component({
-  selector: 'app-title',
+  selector: 'control-title',
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.css'],
 })

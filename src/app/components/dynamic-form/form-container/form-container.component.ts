@@ -5,7 +5,7 @@ import { formConfig } from '../models/buy-and-sell-model';
 import { IFormCategoryConfig } from '../interfaces/form.interfaces';
 
 @Component({
-  selector: 'app-form-container',
+  selector: 'dynamic-form-container',
   templateUrl: './form-container.component.html',
   styleUrls: ['./form-container.component.css']
 })

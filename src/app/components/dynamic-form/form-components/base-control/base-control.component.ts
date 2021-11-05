@@ -3,7 +3,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
 
 @Component({
-  selector: 'app-base-control',
+  selector: 'control-base',
   templateUrl: './base-control.component.html',
   styleUrls: ['./base-control.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush

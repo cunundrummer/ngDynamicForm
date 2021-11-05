@@ -7,7 +7,7 @@ import { categoryRoutePrefix, categoryRoutes } from '../models/category-routes';
 import { ICategoryRouteInterface } from '../interfaces/category-route.interface';
 
 @Component({
-  selector: 'top-form-container',
+  selector: 'top-dynamic-form-container',
   templateUrl: './top-form-container.component.html',
   styleUrls: ['./top-form-container.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
