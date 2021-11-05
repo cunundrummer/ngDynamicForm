@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IFormControlConfigurations } from '../../../interfaces/form.interfaces';
+import { IFormControlConfigurations } from '../interfaces/form.interfaces';
 
 @Injectable({
   providedIn: 'root'

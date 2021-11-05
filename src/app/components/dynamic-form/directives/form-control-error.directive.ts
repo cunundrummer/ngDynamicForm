@@ -9,7 +9,7 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { finalizeMessage } from '../utility-functions/observable-utils';
+import { finalizeMessage } from '../../../utility-functions/observable.utils';
 import { IFormControlConfigurations } from '../interfaces/form.interfaces';
 
 enum ControlStatus {
@@ -54,6 +54,10 @@ export class FormControlErrorDirective implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @warning Not completely implemented
+   * @param {ControlStatus} status
+   */
   handleStatus(status: ControlStatus) {
     console.log('Control is ', status);
     switch (status) {

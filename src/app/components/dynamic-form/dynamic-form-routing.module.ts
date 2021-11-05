@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryContainerComponent } from '../../components/category-container/category-container.component';
+import { TopFormContainerComponent } from './top-form-container/top-form-container.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoryContainerComponent
+    component: TopFormContainerComponent
   },
 ];
 

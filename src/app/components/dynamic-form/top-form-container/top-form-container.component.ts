@@ -3,20 +3,20 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter, take, takeUntil } from 'rxjs/operators';
-import { categoryRoutePrefix, categoryRoutes } from '../../models/category-routes';
-import { ICategoryRouteInterface } from '../../interfaces/category-route.interface';
+import { categoryRoutePrefix, categoryRoutes } from '../models/category-routes';
+import { ICategoryRouteInterface } from '../interfaces/category-route.interface';
 
 @Component({
-  selector: 'app-category-container',
-  templateUrl: './category-container.component.html',
-  styleUrls: ['./category-container.component.css'],
+  selector: 'top-form-container',
+  templateUrl: './top-form-container.component.html',
+  styleUrls: ['./top-form-container.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class CategoryContainerComponent implements OnInit, OnDestroy {
+export class TopFormContainerComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   routePath = ''; // will determine the form to use for the form container component | TO REMOVE if possible
-  category$ = new BehaviorSubject<string>('');
+  category$ = new BehaviorSubject<string>('');  //  Might not be necessary if made into another component.
   destroyed$ = new Subject<boolean>();
 
   constructor(private route: ActivatedRoute, private router: Router) {}

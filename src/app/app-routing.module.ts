@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'category/:categoryName',
-    loadChildren: () => import('./modules/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
+    loadChildren: () => import('./components/dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule)
   },
 ];
 

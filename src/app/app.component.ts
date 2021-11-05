@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { categoryRoutes } from './models/category-routes';
+import { categoryRoutes } from './components/dynamic-form/models/category-routes';
 
 @Component({
   selector: 'app-root',

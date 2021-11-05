@@ -6,7 +6,7 @@ import {
   OnInit,
   Renderer2
 } from '@angular/core';
-import { findAll } from '../utility-functions/array-utils';
+import { findAll } from '../../../utility-functions/array.utils';
 import { IFormControlConstraints } from '../interfaces/form.interfaces';
 
 @Directive({
