@@ -1,6 +1,9 @@
-# NgJsonForm
+# NgJsonForm - NgDynamicForm (better name)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+
+The original intent of this project was to experiment with better dynamic form creation for Angular.  While I had experimented before with dynamic forms before (deleted from my github repository), this one is more of a working prototype with updated Angular concepts (feature module, lazy loading, better directives).  I am happy with the results so I'll share it with the world; as I see many attempts, and many requests for this kind of functionality. 
+
 
 ## Development server
 
@@ -25,3 +28,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
