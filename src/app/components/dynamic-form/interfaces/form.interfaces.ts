@@ -15,6 +15,7 @@ interface IFormControlConfigurationsErrors {
   errMsg: string;
 }
 
+export type formControlConfigurationsType = { [ctrlName: string]: IFormControlConfigurations };
 export interface IFormCategoryConfig {
   forPath: string;
   formControlsConfig: { [ctrlName: string]: IFormControlConfigurations }[]

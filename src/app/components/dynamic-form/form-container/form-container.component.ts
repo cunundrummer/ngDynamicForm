@@ -1,8 +1,12 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicComponentDirective } from '../directives/dynamic-component.directive';
 import { formConfig } from '../models/buy-and-sell-model';
-import {IFormCategoryConfig, IFormControlConfigurations} from '../interfaces/form.interfaces';
+import {
+  formControlConfigurationsType,
+  IFormCategoryConfig,
+  IFormControlConfigurations
+} from '../interfaces/form.interfaces';
 
 @Component({
   selector: 'dynamic-form-container',
@@ -15,15 +19,15 @@ export class FormContainerComponent implements OnInit {
   @Input() routePath!: string;
   configFromPath?: IFormCategoryConfig;
   controlComponentsNames: string[] = []; // name of controlComponents to load
-  components = [] as any[];
-  compConfig: any;
+  components: formControlConfigurationsType[] = [] as formControlConfigurationsType[];
 
   constructor(private fb: FormBuilder, private resolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
+    // Acquire the proper configuration from the path.
     this.configFromPath = this.getFormConfigFromPath();
     console.log('formConfig: ', this.configFromPath);
-    this.setControlComponentNames();  // to extract controls
+    this.setControlComponentNames();  // for extracting controls
     this.components = this.configFromPath.formControlsConfig;
     console.log(this.components);
     this.group = this.createFormGroup();
@@ -87,14 +91,15 @@ export class FormContainerComponent implements OnInit {
 
   loadFormControlComponents(): void {
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
-    this.components.forEach((component) => {
-      Object.keys(component).forEach((key: string) => {
-        if (component[key].associatedComponent) {
-          const componentFactory = this.resolver.resolveComponentFactory(component[key].associatedComponent);
+    this.components.forEach((frmCtrlConfiguration: formControlConfigurationsType) => {
+      Object.keys(frmCtrlConfiguration).forEach((key: string) => {
+        const component: Component = frmCtrlConfiguration[key].associatedComponent as Component;
+        if (component) {
+          const componentFactory = this.resolver.resolveComponentFactory(component as Type<Component>);
           const componentRef = viewContainerRef.createComponent<any>(componentFactory);
-          componentRef.instance.config = component[key];
+          componentRef.instance.config = frmCtrlConfiguration[key];
           componentRef.instance.group = this.group;
-          this.group.controls[key].setValidators(component[key].validators);
+          this.group.controls[key].setValidators(frmCtrlConfiguration[key].validators);
         }
       })
     });
@@ -110,7 +115,11 @@ export class FormContainerComponent implements OnInit {
       });
   }
 
-  createFormGroup() {
+  /**
+   *  @description Creates the form group.  Control names MUST be acquired first as they are bound to this component.
+   *  @todo Might add arguments to make this method less coupled to component? That way, it could be put into a service for forms.
+   */
+  createFormGroup(): FormGroup {
     const group = this.fb.group({});
     this.controlComponentsNames.forEach((controlName: string) => {
       group.addControl(controlName, this.fb.control(null));
@@ -118,11 +127,11 @@ export class FormContainerComponent implements OnInit {
     return group;
   }
 
-  handleSubmit(event: Event) {
+  handleSubmit(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
     // this.submit.emit(this.value);
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy(): void {}
 }
