@@ -25,7 +25,7 @@ export class TopFormContainerComponent implements OnInit, OnDestroy {
     const oldPath = 'category/' + this.route.snapshot.params['categoryName'];
     this.routePath = this.route.snapshot.params['categoryName'];
 
-    const catIndex: number | null = this.findCategoryRouteIndex();
+    const catIndex: number | null = this.__findCategoryRouteIndex();
     if (catIndex !== null) {
       this.category$.next(categoryRoutes[catIndex].category);
     }
@@ -38,7 +38,7 @@ export class TopFormContainerComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         if ((event as RouterEvent).url !== oldPath) {
-          this.reloadCurrentRoute();
+          this.__reloadCurrentRoute();
         }
       });
   }
@@ -46,7 +46,7 @@ export class TopFormContainerComponent implements OnInit, OnDestroy {
   /**
    * @description Ensures that component gets reloaded.
    */
-  reloadCurrentRoute() {
+  private __reloadCurrentRoute() {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', {skipLocationChange: true})
       .then(() => {
@@ -59,8 +59,9 @@ export class TopFormContainerComponent implements OnInit, OnDestroy {
    * @Description Searches the category routes if it exists and returns the
    *              index if found.
    * @return {number | null}
+   * @warning Might put into a dynamic form service.
    */
-  findCategoryRouteIndex(cr: ICategoryRouteInterface[] = categoryRoutes): number | null {
+  private __findCategoryRouteIndex(cr: ICategoryRouteInterface[] = categoryRoutes): number | null {
     return cr.findIndex((value: ICategoryRouteInterface) => {
       const searchVal = value.route.slice(categoryRoutePrefix.length).toLowerCase();
       return searchVal === this.routePath.toLowerCase();

@@ -10,7 +10,7 @@ const DESCRIPTION_MAX_LENGTH = 2000;
 export const buySellFormConfig: IFormCategoryConfig[] = [
   {
     forPath: 'buysell',
-    formControls: [
+    formControlsConfig: [
       {'title': titleControlConfiguration({
           required: true,
           minLength: TITLE_MIN_LENGTH,

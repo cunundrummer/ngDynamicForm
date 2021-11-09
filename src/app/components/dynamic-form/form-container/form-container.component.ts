@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicComponentDirective } from '../directives/dynamic-component.directive';
 import { formConfig } from '../models/buy-and-sell-model';
-import { IFormCategoryConfig } from '../interfaces/form.interfaces';
+import {IFormCategoryConfig, IFormControlConfigurations} from '../interfaces/form.interfaces';
 
 @Component({
   selector: 'dynamic-form-container',
@@ -13,7 +13,7 @@ export class FormContainerComponent implements OnInit {
   @ViewChild(DynamicComponentDirective, {static: true}) dynamicComponentDirective!: DynamicComponentDirective;
   @Input() group!: FormGroup;
   @Input() routePath!: string;
-  configFromPath: any;
+  configFromPath?: IFormCategoryConfig;
   controlComponentsNames: string[] = []; // name of controlComponents to load
   components = [] as any[];
   compConfig: any;
@@ -24,14 +24,14 @@ export class FormContainerComponent implements OnInit {
     this.configFromPath = this.getFormConfigFromPath();
     console.log('formConfig: ', this.configFromPath);
     this.setControlComponentNames();  // to extract controls
-    this.components = this.configFromPath.formControls;
+    this.components = this.configFromPath.formControlsConfig;
     console.log(this.components);
     this.group = this.createFormGroup();
     this.loadFormControlComponents();
   }
 
   /**
-   * Gets the configuration that includes ALL controls for the category path.
+   * @description Gets the configuration that includes ALL controls for the category path.
    * Path is synonymous with category.
    * @example {
     "forPath": "buysell",
@@ -101,18 +101,13 @@ export class FormContainerComponent implements OnInit {
   }
 
   /**
-   * Acquires the names of the components that contain the controls
+   * @description Acquires the names of the components that contain the controls
    */
   setControlComponentNames(): void {
-    const controls: any = [];
-    let ctrlNames: any[] = [];
-    this.configFromPath.formControls.forEach((ctrl: any) => {
-      controls.push(ctrl);
-      Object.keys(ctrl).forEach(k => ctrlNames.push(k));
-    });
-    console.log('Extracted controls: ', controls);
-    console.log('Control names: ', ctrlNames);
-    this.controlComponentsNames = ctrlNames;
+    this.configFromPath?.formControlsConfig
+      .forEach((frmCtrlConfig: {[ctrlName: string]: IFormControlConfigurations}) => {
+        Object.keys(frmCtrlConfig).forEach(k => this.controlComponentsNames.push(k));
+      });
   }
 
   createFormGroup() {

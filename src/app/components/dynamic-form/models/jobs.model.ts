@@ -11,7 +11,7 @@ const DESCRIPTION_MAX_LENGTH = 2000;
 export const jobsConfig: IFormCategoryConfig[] = [
   {
     forPath: 'jobs',
-    formControls: [
+    formControlsConfig: [
       {'title': titleControlConfiguration({
           required: true,
           minLength: JOBS_MIN_LENGTH,

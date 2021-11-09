@@ -17,7 +17,7 @@ interface IFormControlConfigurationsErrors {
 
 export interface IFormCategoryConfig {
   forPath: string;
-  formControls: { [ctrlName: string]: IFormControlConfigurations }[]
+  formControlsConfig: { [ctrlName: string]: IFormControlConfigurations }[]
 }
 
 type hintAlignment = 'start' | 'end';
