@@ -51,7 +51,7 @@ export class TopFormContainerComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/', {skipLocationChange: true})
       .then(() => {
         this.router.navigate([currentUrl])
-          .then(_ => _);
+          .then(_ => _);  // avoids jsdoc complaint.  Removable.
       });
   }
 
