@@ -89,6 +89,9 @@ export class FormContainerComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Loads the appropriate component with its relevant data.
+   */
   loadFormControlComponents(): void {
     const viewContainerRef = this.dynamicComponentDirective.viewContainerRef;
     this.components.forEach((frmCtrlConfiguration: formControlConfigurationsType) => {
