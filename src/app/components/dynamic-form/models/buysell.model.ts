@@ -1,6 +1,7 @@
-import { IFormCategoryConfig } from '../interfaces/form.interfaces';
+import {IFormCategoryConfig } from '../interfaces/form.interfaces';
 import { titleControlConfiguration } from './controlConfigurations/titleControlConfiguration';
 import { descriptionControlConfiguration } from './controlConfigurations/descriptionControlConfiguration';
+import { customPriceControlConfiguration } from "./controlConfigurations/customPriceControlConfiguration";
 
 const TITLE_MIN_LENGTH = 5;
 const TITLE_MAX_LENGTH = 20;
@@ -20,6 +21,11 @@ export const buySellFormConfig: IFormCategoryConfig[] = [
           required: true,
           minLength: DESCRIPTION_MIN_LENGTH,
           maxLength: DESCRIPTION_MAX_LENGTH})
+      },
+      {
+        'price': customPriceControlConfiguration({
+          required: true
+        })
       }
     ]
   }

@@ -13,6 +13,7 @@ import { TitleComponent } from './form-components/title/title.component';
 import { DescriptionComponent } from './form-components/description/description.component';
 import { BaseControlComponent } from './form-components/base-control/base-control.component';
 import { TopFormContainerComponent } from './top-form-container/top-form-container.component';
+import { CustomPriceComponent } from './form-components/custom-price/custom-price.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TopFormContainerComponent } from './top-form-container/top-form-contain
     TitleComponent,
     DescriptionComponent,
     BaseControlComponent,
-    TopFormContainerComponent
+    TopFormContainerComponent,
+    CustomPriceComponent
   ],
   imports: [
     CommonModule,

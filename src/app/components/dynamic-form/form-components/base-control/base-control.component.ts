@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
 
@@ -6,7 +6,7 @@ import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
   selector: 'control-base',
   templateUrl: './base-control.component.html',
   styleUrls: ['./base-control.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseControlComponent implements OnInit {
   @Input() group!: FormGroup;
@@ -14,8 +14,7 @@ export class BaseControlComponent implements OnInit {
   control!: AbstractControl;
   err: string | null = '' ;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     // atm, all control components have this. not DRY.
