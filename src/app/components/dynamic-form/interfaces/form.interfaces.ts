@@ -30,7 +30,7 @@ type hintAlignment = 'start' | 'end';
  */
 
 export interface IFormControlConfigurations {
-  id: string;  // default = IFormControlConfigurations
+  interfaceId: string;  // default = IFormControlConfigurations
   associatedComponent?: Component;
   name: string;
   label?: string;

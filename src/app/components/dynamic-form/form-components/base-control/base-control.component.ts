@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
-import { config } from 'rxjs';
 
 @Component({
   selector: 'control-base',
@@ -20,7 +19,7 @@ export class BaseControlComponent implements OnInit {
   ngOnInit(): void {
     // atm, all control components have this. not DRY.
     // Problem with f-c-error directive.
-    const isInstanceOfInterface = typeof config;
+    const isInstanceOfInterface = this.config.interfaceId;
     console.log(isInstanceOfInterface);
     this.control = this.group.controls[this.config.name];
   }

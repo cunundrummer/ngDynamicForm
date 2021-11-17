@@ -15,6 +15,7 @@ export const descriptionControlConfiguration = (constraints: IFormControlConstra
   if (required) validators.push(Validators.required);
 
   return {
+    interfaceId: 'IFormControlConfigurations',
     associatedComponent: <Component>DescriptionComponent,
     name: 'description', // to be used along with formControlName directive
     usesMatFormField: true,
