@@ -2,12 +2,12 @@
   <legend [ngClass]="fieldError ? errorClass: noErrorsClass">Price *</legend>
 
   <div class="grid">
-    <mat-radio-group formControlName="priceOptions" class="buyandsell-radio-group" (change)="handleChange($event)" required>
-      <mat-radio-button *ngFor="let option of buyAndSellPriceOptions; let i = index"
-                        [value]="option.value"
-      >
-        {{option.text}}
-      </mat-radio-button>
+    <mat-radio-group [formControlName]="config.name" class="buyandsell-radio-group" (change)="handleChange($event)" required>
+<!--      <mat-radio-button *ngFor="let option of config.radioGroupOtions; let i = index"-->
+<!--                        [value]="option.value"-->
+<!--      >-->
+<!--        {{option.text}}-->
+<!--      </mat-radio-button>-->
     </mat-radio-group>
   </div>
 </fieldset>

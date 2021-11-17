@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseControlComponent } from '../base-control/base-control.component';
 
 @Component({
@@ -6,14 +6,9 @@ import { BaseControlComponent } from '../base-control/base-control.component';
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.css']
 })
-export class DescriptionComponent extends BaseControlComponent implements OnInit {
+export class DescriptionComponent extends BaseControlComponent {
 
   constructor() {
     super();
   }
-
-  ngOnInit(): void {
-    this.control = this.group.controls[this.config.name];
-  }
-
 }

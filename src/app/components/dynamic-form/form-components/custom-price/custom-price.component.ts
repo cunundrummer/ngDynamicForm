@@ -27,17 +27,9 @@ export class CustomPriceComponent extends BaseControlComponent implements Contro
   readonly errorClass = 'mat-error';
   readonly noErrorsClass = 'non-material-fieldset';
   fieldError = false;
-  buyAndSellPriceOptions = [
-    {text: '$', value: RadioValues.askingPrice.toString(), checked: true},
-    {text: 'Free', value: RadioValues.free.toString(), checked: false},
-    {text: 'Contact me!', value: RadioValues.contact.toString(), checked: false}
-  ];
 
   constructor() {
     super();
-  }
-
-  ngOnInit(): void {
   }
 
   /**

@@ -1,7 +1,7 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicComponentDirective } from '../directives/dynamic-component.directive';
-import { formConfig } from '../models/buy-and-sell-model';
+import { formConfig } from '../models/form-config';
 import {
   formControlConfigurationsType,
   IFormCategoryConfig,
