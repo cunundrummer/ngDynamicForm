@@ -17,10 +17,9 @@ export class BaseControlComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // atm, all control components have this. not DRY.
-    // Problem with f-c-error directive.
-    const isInstanceOfInterface = this.config.interfaceId;
-    console.log(isInstanceOfInterface);
+    const ofInterfaceName = this.config.interfaceId;
+    console.log(ofInterfaceName);
+    console.log(this.config.name);
     this.control = this.group.controls[this.config.name];
   }
 

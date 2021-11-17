@@ -22,11 +22,11 @@ export const buySellFormConfig: IFormCategoryConfig[] = [
           minLength: DESCRIPTION_MIN_LENGTH,
           maxLength: DESCRIPTION_MAX_LENGTH})
       },
-      // {
-      //   'price': customPriceControlConfiguration({
-      //     required: true
-      //   })
-      // }
+      {
+        'customPrice': customPriceControlConfiguration({
+          required: true
+        })
+      }
     ]
   }
 ];
