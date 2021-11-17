@@ -8,6 +8,10 @@ const TITLE_MAX_LENGTH = 20;
 const DESCRIPTION_MIN_LENGTH = 5;
 const DESCRIPTION_MAX_LENGTH = 2000;
 
+/**
+ * !IMPORTANT!  in formControlsConfig, REMEMBER that the key is also the
+ * name of the control in the FormGroup.
+ */
 export const buySellFormConfig: IFormCategoryConfig[] = [
   {
     forPath: 'buysell',

@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
+import { IPriceCustomFormControlConfiguration } from '../../models/controlConfigurations/customPriceControlConfiguration';
 
 @Component({
   selector: 'control-base',
@@ -10,17 +11,24 @@ import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
 })
 export class BaseControlComponent implements OnInit {
   @Input() group!: FormGroup;
-  @Input() config!: IFormControlConfigurations;
+  @Input() config!: any;
   control!: AbstractControl;
   err: string | null = '' ;
 
   constructor() {}
 
   ngOnInit(): void {
-    const ofInterfaceName = this.config.interfaceId;
-    console.log(ofInterfaceName);
-    console.log(this.config.name);
-    this.control = this.group.controls[this.config.name];
+    let configurationInterfaceToUse;
+
+    switch (this.config.interfaceId) {
+      case 'IPriceCustomFormControlConfiguration':
+        configurationInterfaceToUse = this.config as IPriceCustomFormControlConfiguration;
+        break;
+      default:
+        configurationInterfaceToUse = this.config as IFormControlConfigurations;
+    }
+    this.control = this.group.controls[configurationInterfaceToUse.name];
+
   }
 
   /**
