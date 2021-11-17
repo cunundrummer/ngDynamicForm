@@ -30,6 +30,7 @@ export const customPriceControlConfiguration = (constraints: Partial<IFormContro
   if (required) validators.push(Validators.required);
 
   return {
+    id: 'IPriceCustomFormControlConfiguration',
     associatedComponent: <Component>CustomPriceComponent,
     name: 'customPrice', // to be used along with formControlName directive
     usesMatFormField: true,

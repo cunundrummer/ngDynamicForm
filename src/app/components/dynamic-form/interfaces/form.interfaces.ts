@@ -23,7 +23,14 @@ export interface IFormCategoryConfig {
 
 type hintAlignment = 'start' | 'end';
 
+/**
+ *  id to be used as discriminator. Since there might be custom controls too.
+ *  ex. IPriceCustomFormControlConfiguration
+ *  @link https://stackoverflow.com/questions/14425568/interface-type-check-with-typescript
+ */
+
 export interface IFormControlConfigurations {
+  id: string;  // default = IFormControlConfigurations
   associatedComponent?: Component;
   name: string;
   label?: string;

@@ -18,6 +18,7 @@ export const titleControlConfiguration = (constraints: IFormControlConstraints):
   if (required) validators.push(Validators.required);
 
   return {
+    id: 'IFormControlConfigurations',
     associatedComponent: <Component>TitleComponent,
     name: 'title', // to be used along with formControlName directive
     usesMatFormField: true,
