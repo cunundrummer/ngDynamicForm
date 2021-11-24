@@ -1,0 +1,17 @@
+<div [formGroup]="priceControlGroup">
+  <span class="price-input" (click)="priceControlGroup.controls['priceOptions'].setValue('0'); handlePriceClick()">
+    <mat-form-field class="value-textbox" appearance="outline">
+      <mat-icon matPrefix svgIcon="dollar-sign"></mat-icon>
+      <!-- allows single decimal either through directive or checking every keypress -->
+      <input matInput #txtPrice [formControlName]="'priceValue'" type="number" min="0" (keypress)="handleInputChange($event)"/>
+    </mat-form-field>
+    <mat-error *ngIf="priceControlGroup.controls['priceValue']?.errors?.min">
+        Price has to be at least $0.
+    </mat-error>
+  </span>
+</div>
+
+<p></p>
+{{priceControlGroup.value | json}}
+<p></p>
+{{priceControlGroup.valid}}

@@ -3,8 +3,6 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { IFormControlConfigurations } from '../../interfaces/form.interfaces';
 import { IPriceCustomFormControlConfiguration } from '../../models/controlConfigurations/customPriceControlConfiguration';
 
-
-type IConfigurationTypes = IFormControlConfigurations | IPriceCustomFormControlConfiguration
 @Component({
   selector: 'control-base',
   templateUrl: './base-control.component.html',
@@ -20,8 +18,13 @@ export class BaseControlComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.control = this.group.controls[this.getConfigWithProperInterface().name];
+    const config = this.getConfigWithProperInterface();
+    this.control = this.group.controls[config.name];
+    this.config = config;
+    this.update();
   }
+
+  update() {}
 
   /**
    * @description returns the config casted with the appropriate interface.

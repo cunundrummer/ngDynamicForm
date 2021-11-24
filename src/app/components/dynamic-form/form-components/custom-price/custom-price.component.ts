@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 import { MatRadioChange } from '@angular/material/radio';
+import { BehaviorSubject } from 'rxjs';
 
 
 enum RadioValues {
@@ -26,10 +27,16 @@ export class CustomPriceComponent extends BaseControlComponent implements Contro
   /**Don't forget to implement custom validators if necessary**/
   readonly errorClass = 'mat-error';
   readonly noErrorsClass = 'non-material-fieldset';
+  radioOptions = new BehaviorSubject<any>(null);
   fieldError = false;
 
   constructor() {
     super();
+  }
+
+  update() {
+    this.radioOptions.next(this.config.radioGroupOptions);
+    console.log(this.radioOptions.getValue());
   }
 
   /**
@@ -48,5 +55,9 @@ export class CustomPriceComponent extends BaseControlComponent implements Contro
   }
 
   setDisabledState(isDisabled: boolean) {
+  }
+
+  setFieldError(ev: boolean) {
+    this.fieldError = ev;
   }
 }
