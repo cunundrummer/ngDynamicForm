@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -13,6 +13,8 @@ import { IPriceCustomFormControlConfiguration } from '../../../models/controlCon
 export class PriceComponent extends BaseControlComponent {
   @Input() group!: FormGroup;
   @Input() config!: IPriceCustomFormControlConfiguration;
+  @Output('fieldError') fieldError = new EventEmitter<boolean>();
+  @Output('price') price = new EventEmitter<number>();
   control!: AbstractControl;
   err: string | null = '' ;
 
@@ -55,5 +57,9 @@ export class PriceComponent extends BaseControlComponent {
         ev.stopPropagation();
       }
     }
+
+    // todo: remove if not implementing in custom-price-control
+    // this.price.emit(this.control.value);
+    // this.fieldError.emit(this.control?.errors?.length)
   }
 }

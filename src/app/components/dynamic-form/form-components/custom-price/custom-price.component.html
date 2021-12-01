@@ -9,8 +9,8 @@
         {{option.text}}
       </mat-radio-button>
     </mat-radio-group>
-  <app-price-input (fieldError)="setFieldError($event)"
-                   (price)="handlePriceEmission($event)">
-  </app-price-input>
+  <app-price (fieldError)="setFieldError($event)"
+             (price)="handlePriceEmission($event)">
+  </app-price>
   </div>
 </fieldset>
