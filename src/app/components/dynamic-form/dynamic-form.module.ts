@@ -15,6 +15,7 @@ import { BaseControlComponent } from './form-components/base-control/base-contro
 import { TopFormContainerComponent } from './top-form-container/top-form-container.component';
 import { CustomPriceComponent } from './form-components/custom-price/custom-price.component';
 import { PriceInputComponent } from './form-components/custom-price/price-input/price-input.component';
+import { PriceComponent } from './form-components/custom-price/price/price.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PriceInputComponent } from './form-components/custom-price/price-input/
     BaseControlComponent,
     TopFormContainerComponent,
     CustomPriceComponent,
-    PriceInputComponent
+    PriceInputComponent,
+    PriceComponent
   ],
   imports: [
     CommonModule,

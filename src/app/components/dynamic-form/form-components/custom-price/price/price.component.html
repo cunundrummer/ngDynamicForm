@@ -1,0 +1,18 @@
+<div *ngIf="config.usesMatFormField" [formGroup]="group">
+  <p></p>
+  <mat-form-field appearance="outline">
+    <mat-label>{{config.label}}</mat-label>
+    <mat-icon matPrefix svgIcon="dollar-sign"></mat-icon>
+    <!-- allows single decimal either through directive or checking every keypress -->
+    <input matInput
+           required
+           #txtPrice
+           [formControlName]="config.name"
+           [customInput]="config"
+           (input)="handlePriceChange()"
+           (keypress)="handleInputChange($event)"
+           (click)="txtPrice.select()"
+    />
+  </mat-form-field>
+  <mat-error formControlError [control]="control" (errMsg)="buildErrorMessage($event)">{{err}}</mat-error>
+</div>

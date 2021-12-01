@@ -3,32 +3,27 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control/base-control.component';
 import { MatRadioChange } from '@angular/material/radio';
 import { BehaviorSubject } from 'rxjs';
-
-
-enum RadioValues {
-  askingPrice,
-  free,
-  contact
-}
+import { PriceRadioValues } from '../../models/controlConfigurations/customPriceControlConfiguration';
 
 @Component({
   selector: 'app-custom-price',
   templateUrl: './custom-price.component.html',
   styleUrls: ['./custom-price.component.css'],
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi:true,
-      useExisting: CustomPriceComponent
-    }
+    // {
+    //   provide: NG_VALUE_ACCESSOR,
+    //   multi:true,
+    //   useExisting: CustomPriceComponent
+    // }
   ]
 })
-export class CustomPriceComponent extends BaseControlComponent implements ControlValueAccessor {
+export class CustomPriceComponent extends BaseControlComponent {
   /**Don't forget to implement custom validators if necessary**/
   readonly errorClass = 'mat-error';
   readonly noErrorsClass = 'non-material-fieldset';
   radioOptions = new BehaviorSubject<any>(null);
   fieldError = false;
+  price = 0;
 
   constructor() {
     super();
@@ -43,18 +38,16 @@ export class CustomPriceComponent extends BaseControlComponent implements Contro
    * Will enable/disable the price input whether the selected radio button value is 0 or not.
    *
    */
-  handleChange(ev: MatRadioChange) {}
-
-  writeValue(obj: any) {
+  handleChange(ev: MatRadioChange) {
+    switch (ev.value as PriceRadioValues) {
+      case PriceRadioValues.ASKING_PRICE:
+        console.log('Set price input to enabled.');
+        break;
+    }
   }
 
-  registerOnChange(fn: any) {
-  }
-
-  registerOnTouched(fn: any) {
-  }
-
-  setDisabledState(isDisabled: boolean) {
+  handlePriceEmission(ev: string | number) {
+    this.price = ev as number;
   }
 
   setFieldError(ev: boolean) {

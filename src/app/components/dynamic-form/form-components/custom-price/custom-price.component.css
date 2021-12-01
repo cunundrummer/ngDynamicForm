@@ -1,0 +1,80 @@
+fieldset {
+  margin: 0;
+  max-width: max-content;
+  border: 1px solid rgba(0, 0, 0, .12);
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  border-radius: 5px;
+}
+
+.buyandsell-radio-group {
+  display: flex;
+  flex-flow: column;
+  /*width: max-content;*/
+}
+
+.price-input {
+  margin-top: -5px;
+  grid-row: 1;
+  grid-column: 2;
+  align-self: start;
+}
+
+mat-radio-button {
+  padding-bottom: 5px;
+}
+
+.fieldset-price-container {
+  min-height: 130px;
+  max-height: max-content;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-gap: 10px;
+}
+
+fieldset > legend {
+  opacity: .5;
+  padding: 0 2px 0 2px;
+}
+fieldset:focus > legend,
+fieldset:hover > legend {
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+}
+
+fieldset:hover,
+fieldset:focus {
+  border: 2px solid rgba(0, 0, 0, .9);
+  transition: border 100ms ease-out;
+}
+
+fieldset.mat-error {
+  border-color: orangered;
+  border-width: 2px;
+  transition: border 100ms ease-out;
+}
+
+legend.mat-error {
+  font-weight: bold;
+  color: red;
+  opacity: 1;
+}
+
+
+/**
+do away with number spinner arrows in number text field
+ */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}

@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { IFormControlConfigurations, IFormControlConstraints } from "../../interfaces/form.interfaces";
+import { IFormControlConfigurations, IFormControlConstraintsBase } from "../../interfaces/form.interfaces";
 import { CustomPriceComponent } from "../../form-components/custom-price/custom-price.component";
 import { ValidatorFn, Validators } from "@angular/forms";
 
 
-enum PriceRadioValues {
+export enum PriceRadioValues {
   ASKING_PRICE,
   FREE,
   CONTACT
@@ -24,7 +24,7 @@ const buySellPriceOptions = [
   {text: 'Contact me!', value: PriceRadioValues.CONTACT/**.toString()**/, checked: false}
 ];
 
-export const customPriceControlConfiguration = (constraints: Partial<IFormControlConstraints>): IPriceCustomFormControlConfiguration => {
+export const customPriceControlConfiguration = (constraints: Partial<IFormControlConstraintsBase>): IPriceCustomFormControlConfiguration => {
   const {required} = {...constraints};
   const validators: ValidatorFn[] = [];
   if (required) validators.push(Validators.required);
@@ -42,7 +42,7 @@ export const customPriceControlConfiguration = (constraints: Partial<IFormContro
       alignment: 'end',
       message: 'Hint message'
     },
-    constraints: constraints as IFormControlConstraints | null,
+    constraints: constraints as IFormControlConstraintsBase | null,
     errorMessages: [
       {
         errName: 'required',

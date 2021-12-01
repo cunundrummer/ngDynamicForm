@@ -1,5 +1,5 @@
 <div [formGroup]="priceControlGroup">
-  <span class="price-input" (click)="priceControlGroup.controls['priceOptions'].setValue('0'); handlePriceClick()">
+  <span class="price-input" (click)="handlePriceClick()">
     <mat-form-field class="value-textbox" appearance="outline">
       <mat-icon matPrefix svgIcon="dollar-sign"></mat-icon>
       <!-- allows single decimal either through directive or checking every keypress -->

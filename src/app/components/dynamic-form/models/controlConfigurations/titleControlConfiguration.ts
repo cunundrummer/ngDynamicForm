@@ -1,8 +1,12 @@
-import { IFormControlConfigurations, IFormControlConstraints } from '../../interfaces/form.interfaces';
+import { IFormControlConfigurations, IFormControlConstraintsBase } from '../../interfaces/form.interfaces';
 import { Component } from '@angular/core';
 import { TitleComponent } from '../../form-components/title/title.component';
 import { Validators } from '@angular/forms';
 
+export interface IFormControlConstraintsTitle extends IFormControlConstraintsBase {
+  minLength: number;
+  maxLength: number;
+}
 
 /*************
  * CONSTANTS *
@@ -12,7 +16,7 @@ const titleHintMessage = () => 'Enter a descriptive title'
 const minLengthErrorMessage = (num: number) => `Please enter a minimum of ${num} characters`;
 const maxLengthErrorMessage = (num: number) => `Please enter a maximum of ${num} characters`;
 
-export const titleControlConfiguration = (constraints: IFormControlConstraints): IFormControlConfigurations => {
+export const titleControlConfiguration = (constraints: IFormControlConstraintsTitle): IFormControlConfigurations => {
   const {required, minLength, maxLength} = {...constraints};
   const validators = [Validators.minLength(minLength), Validators.maxLength(maxLength)];
   if (required) validators.push(Validators.required);
@@ -29,7 +33,7 @@ export const titleControlConfiguration = (constraints: IFormControlConstraints):
       alignment: 'end',
       message: titleHintMessage()
     },
-    constraints: constraints as IFormControlConstraints | null,
+    constraints: constraints as IFormControlConstraintsBase | null,
     errorMessages: [
       {
         errName: 'required',

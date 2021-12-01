@@ -24,7 +24,13 @@ export class BaseControlComponent implements OnInit {
     this.update();
   }
 
-  update() {}
+  /**
+   * @description Sub-class overrideable helper method that gets called from NgOnInit when
+   *              sub-class cannot implement ngOnInit.
+   */
+  update() {
+    // (In sub-class), ngOnInit continuation code goes here
+  }
 
   /**
    * @description returns the config casted with the appropriate interface.

@@ -32,7 +32,7 @@ export class FormControlErrorDirective implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    this.setInitialError(); // Must stay as first method call. See description.
+    this.setInitialError(); /** Must stay as first method call. See description of method. */
 
     const statusObs$ = this.control.statusChanges
       .pipe(
@@ -70,10 +70,12 @@ export class FormControlErrorDirective implements OnInit, OnDestroy {
       case ControlStatus.INVALID:
         let error: string | null = null;
 
-        for (const errorKey of Object.keys(this.control?.errors as string[])) {
-          if (errorKey) {
-            error = errorKey;
-            break;
+        if (this.control?.errors) {
+          for (const errorKey of Object.keys(this.control?.errors as string[])) {
+            if (errorKey) {
+              error = errorKey;
+              break;
+            }
           }
         }
         return error;

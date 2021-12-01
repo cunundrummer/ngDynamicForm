@@ -1,7 +1,12 @@
-import { IFormControlConfigurations, IFormControlConstraints } from '../../interfaces/form.interfaces';
+import { IFormControlConfigurations, IFormControlConstraintsBase } from '../../interfaces/form.interfaces';
 import { Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { DescriptionComponent } from '../../form-components/description/description.component';
+
+export interface IFormControlConstraintsDescription extends IFormControlConstraintsBase {
+  minLength: number;
+  maxLength: number;
+}
 
 const descriptionRequiredErrorMessage = () => 'Please enter a description.';
 const descriptionHintMessage = () => 'More details means better rate of views.';
@@ -9,7 +14,7 @@ const minLengthErrorMessage = (num: number) => `Please enter a minimum of ${num}
 const maxLengthErrorMessage = (num: number) => `Please enter a maximum of ${num} characters`;
 
 
-export const descriptionControlConfiguration = (constraints: IFormControlConstraints): IFormControlConfigurations => {
+export const descriptionControlConfiguration = (constraints: IFormControlConstraintsDescription): IFormControlConfigurations => {
   const {required, minLength, maxLength} = {...constraints};
   const validators = [Validators.minLength(minLength), Validators.maxLength(maxLength)];
   if (required) validators.push(Validators.required);
@@ -26,7 +31,7 @@ export const descriptionControlConfiguration = (constraints: IFormControlConstra
       alignment: 'end',
       message: descriptionHintMessage()
     },
-    constraints: constraints as IFormControlConstraints | null,
+    constraints: constraints as IFormControlConstraintsBase | null,
     errorMessages: [
       {
         errName: 'required',

@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PriceInputComponent implements OnInit {
   @Output('fieldError') fieldError = new EventEmitter<boolean>();
+  @Output('price') price = new EventEmitter<string>();
   @ViewChild('txtPrice') txtPrice!: ElementRef<HTMLInputElement>; // for focusing element
   priceControlGroup!: FormGroup;
   readonly MIN_PRICE_VALUE = 0; // should never be negative value
@@ -27,8 +28,7 @@ export class PriceInputComponent implements OnInit {
 
   private buildInputForm() {
     this.priceControlGroup = this.fb.group({
-      priceOptions: ['', [Validators.required]],
-      priceValue: [{value: '', disabled: true}, Validators.min(this.MIN_PRICE_VALUE)]
+      priceValue: [{value: this.MIN_PRICE_VALUE, disabled: true}, Validators.min(this.MIN_PRICE_VALUE)]
     });
   }
 
@@ -39,23 +39,24 @@ export class PriceInputComponent implements OnInit {
   }
 
   /**
-   * @description aside from preventing letters, this method prevents '-' and excess periods. If all is good, the fielsset
-   *              errors (if any) are removed.
+   * @description aside from preventing letters, this method prevents '-' and excess periods. If all is good, the
+   * fieldset errors (if any) are removed.
    */
   handleInputChange(ev: KeyboardEvent) {
-    const txtValue = this.priceControlGroup.controls.priceValue.value;
-    if (ev.code.toLowerCase() === 'minus') {
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-    if (ev.code.toLowerCase() === 'period') {
-      const str = txtValue.toString();
-      const DECIMAL = '.';
-      if (str.indexOf(DECIMAL) > -1) {
-        ev.preventDefault();
-        ev.stopPropagation();
-      }
-    }
-    this.fieldError.emit(false);
+  //   // default value 0. Also prevents error (null value).
+  //   const txtValue = this.priceControlGroup.controls.priceValue.value  || this.MIN_PRICE_VALUE;
+  //   if (ev.code.toLowerCase() === 'minus') {
+  //     ev.preventDefault();
+  //     ev.stopPropagation();
+  //   }
+  //   if (ev.code.toLowerCase() === 'period') {
+  //     const str = txtValue.toString();
+  //     const DECIMAL = '.';
+  //     if (str.indexOf(DECIMAL) > -1) {
+  //       ev.preventDefault();
+  //       ev.stopPropagation();
+  //     }
+  //   }
+  //   this.fieldError.emit(false);
   }
 }

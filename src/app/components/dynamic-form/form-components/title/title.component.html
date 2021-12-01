@@ -1,3 +1,6 @@
+<!-- NOTE:  Green squiggly lines are IDE errors, not coding errors!
+            Could be fixed with Object["Indexer"] notation.
+-->
 <div *ngIf="config.usesMatFormField" [formGroup]="group">
   <mat-form-field [hintLabel]="config?.hints?.message || ''" [hideRequiredMarker]="!config.constraints!.required">
     <mat-label>{{config.label}}</mat-label>
@@ -7,7 +10,10 @@
            [formControlName]="config.name"
            [customInput]="config"
     >
-    <mat-hint *ngIf="config.hints" [align]="config.hints.alignment">{{inputEl.value.length || 0}} / {{config?.constraints?.maxLength}}</mat-hint>
+    <mat-hint *ngIf="config.hints"
+              [align]="config?.hints?.alignment">
+      {{inputEl.value.length || 0}} / {{config?.constraints?.maxLength}}
+    </mat-hint>
     <mat-error formControlError [control]="control" (errMsg)="buildErrorMessage($event)">{{err}}</mat-error>
   </mat-form-field>
 </div>
